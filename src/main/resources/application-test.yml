@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:zentra_test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+
+##Log-test
+logging:
+  level:
+    root: WARN
+    com.zentra.zentra_flow: INFO
+    org.hibernate.SQL: DEBUG
+  pattern:
+    console: "%-5level [%X{traceId}] %logger{36} - %msg%n"

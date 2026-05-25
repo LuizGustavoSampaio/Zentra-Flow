@@ -1,0 +1,13 @@
+package com.zentra.zentra_flow;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ZentraFlowApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ZentraFlowApplication.class, args);
+	}
+
+}

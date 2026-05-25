@@ -1,0 +1,27 @@
+services:
+  db-dev:
+    image: postgres:15.3
+    container_name: zentra-flow-db-dev
+    environment:
+      - POSTGRES_DB=${DEV_DB_NAME}
+      - POSTGRES_USER=${DEV_DB_USER}
+      - POSTGRES_PASSWORD=${DEV_DB_PASS}
+    ports:
+      - "5434:5432"
+    volumes:
+      - db-dev-data:/var/lib/postgresql/data
+
+  db-prod:
+    image: postgres:15.3
+    container_name: zentra-flow-db-prod
+    environment:
+      - POSTGRES_DB=${PROD_DB_NAME}
+      - POSTGRES_USER=${PROD_DB_USER}
+      - POSTGRES_PASSWORD=${PROD_DB_PASS}
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-prod-data:/var/lib/postgresql/data
+volumes:
+  db-dev-data:
+  db-prod-data:
