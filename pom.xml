@@ -14,7 +14,7 @@
 
 	<groupId>com.zentra</groupId>
 	<artifactId>zentra-flow</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<name>zentra-flow</name>
 	<description>Projeto Zentra Flow</description>
 
