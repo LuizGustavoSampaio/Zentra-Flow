@@ -12,7 +12,7 @@ spring:
 
 zentra-flow:
   security:
-    max-login-attemps: 5
+    max-login-attempts: 5
     lockout-duration-minutes: 15
 
 logging:
