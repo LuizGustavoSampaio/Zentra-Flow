@@ -1,5 +1,7 @@
 package com.zentra.zentra_flow.services;
 
+import com.zentra.zentra_flow.dto.LoginRequestDTO;
+import com.zentra.zentra_flow.dto.LoginResponseDTO;
 import com.zentra.zentra_flow.entities.Client;
 import com.zentra.zentra_flow.repositories.ClientRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.View;
 
 
 @Slf4j
@@ -16,8 +17,11 @@ import org.springframework.web.servlet.View;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
+    private final TokenService tokenService;
+
     private final ClientRepository clientRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+
 
     @Value("${zentra-flow.security.max-login-attempts}")
     private int maxAttempts;
@@ -25,8 +29,13 @@ public class AuthenticationService {
     @Value("${zentra-flow.security.lockout-duration-minutes}")
     private int durationMinutes;
 
+
     @Transactional
-    public String login(String email,String rawPassword) {
+    public LoginResponseDTO login(LoginRequestDTO request) {
+
+        String email = request.email();
+        String password = request.password();
+
         Client client = clientRepository.findByEmail(email)
                 .orElseThrow(() -> {
                     log.warn("AUDIT [LOGIN_FAILED] - Attempt to log in with an unregistered email address: {}", email);
@@ -39,7 +48,7 @@ public class AuthenticationService {
             throw new RuntimeException("Account temporarily blocked. Please try again in " + minutesLeft + " minutes.");
         }
 
-        boolean isPassWordValid = passwordEncoder.matches(rawPassword, client.getPasswordHash());
+        boolean isPassWordValid = passwordEncoder.matches(password, client.getPasswordHash());
 
         if (!isPassWordValid) {
             client.recordFailedLogin(maxAttempts, durationMinutes);
@@ -57,7 +66,8 @@ public class AuthenticationService {
 
         log.info("AUDIT [LOGIN_SUCCESS] - User {} successfully authenticated.", email);
 
-        return "Login successful!";
+        String generateToken = tokenService.generateToken(client);
+        return new LoginResponseDTO(generateToken, "Bearer", email);
 
     }
 }
