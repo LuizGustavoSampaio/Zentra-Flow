@@ -36,7 +36,7 @@ public abstract class Client extends BaseEntity {
 
     @Setter
     @Column(name = "email", unique = true, nullable = false, length = 150)
-    @NotBlank(message = "The Name field cannot be empty.")
+    @NotBlank(message = "The Email field cannot be empty.")
     private String email;
 
     @Column(name = "password_hash", nullable = false)
@@ -54,7 +54,7 @@ public abstract class Client extends BaseEntity {
     /*Block login if there are too many attempts.*/
     public void recordFailedLogin(int maxAttempts, int durationMinutes){
         this.failedLoginAttempts++;
-        if(this.failedLoginAttempts > maxAttempts) {
+        if(this.failedLoginAttempts >= maxAttempts) {
             this.lockUntil = LocalDateTime.now().plusMinutes(durationMinutes);
         }
     }
@@ -75,7 +75,7 @@ public abstract class Client extends BaseEntity {
 
     /*Returns how many minutes are left to unlock the login.*/
     public int getMinutesUntilUnlock() {
-        if(lockUntil == null || isAccountLocked()){
+        if(lockUntil == null || !isAccountLocked()){
             return 0;
         }
         Duration duration = Duration.between(LocalDateTime.now(), this.lockUntil);

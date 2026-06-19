@@ -30,7 +30,7 @@ public class AuthenticationService {
     private int durationMinutes;
 
 
-    @Transactional
+
     public LoginResponseDTO login(LoginRequestDTO request) {
 
         String email = request.email();
