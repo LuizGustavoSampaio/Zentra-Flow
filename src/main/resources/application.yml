@@ -19,3 +19,9 @@ logging:
   level:
     org.flywaydb: DEBUG
     org.springframework.jdbc: DEBUG
+
+api:
+  security:
+    token:
+      secret: ${ZENTRA_JWT_SECRET}
+      expiration: ${ZENTRA_JWT_EXPIRATION:86400000}

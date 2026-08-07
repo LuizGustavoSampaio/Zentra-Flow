@@ -15,7 +15,9 @@ spring:
 logging:
   level:
     root: WARN
-    com.zentra.zentraflow: INFO
+    com.zentra.zentra_flow: INFO
+    org.flywaydb: WARN
+    org.springframework.jdbc: WARN
   file:
     name: ./logs-locais/app.log
   pattern:
