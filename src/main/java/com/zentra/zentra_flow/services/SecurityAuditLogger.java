@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -20,7 +22,7 @@ public class SecurityAuditLogger {
      * @param acao O type of operation (Ex: "login-failled")
      * @param descricao O Detailed log description
      */
-
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void log(String action, String description){
         String traceId = MDC.get(TRACE_ID_KEY);
         if(traceId == null || traceId.isEmpty()) {
