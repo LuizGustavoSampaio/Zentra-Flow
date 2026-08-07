@@ -18,9 +18,10 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
 
     private final TokenService tokenService;
-
+    private final SecurityAuditLogger auditLogger;
     private final ClientRepository clientRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+
 
 
     @Value("${zentra-flow.security.max-login-attempts}")
@@ -30,7 +31,7 @@ public class AuthenticationService {
     private int durationMinutes;
 
 
-
+    @Transactional
     public LoginResponseDTO login(LoginRequestDTO request) {
 
         String email = request.email();
@@ -38,13 +39,15 @@ public class AuthenticationService {
 
         Client client = clientRepository.findByEmail(email)
                 .orElseThrow(() -> {
-                    log.warn("AUDIT [LOGIN_FAILED] - Attempt to log in with an unregistered email address: {}", email);
+                    auditLogger.log("LOGIN_FAILED",
+                            "Attempted login with unregistered email: " + email);
                     return new RuntimeException("Invalid credentials.");
                 });
 
         if (client.isAccountLocked()) {
             int minutesLeft = client.getMinutesUntilUnlock();
-            log.warn("AUDIT [LOGIN_BLOCKED] - User {} tried to log in but the account is blocked for {} more minutes.", email, minutesLeft);
+            auditLogger.log("LOGIN_BLOCKED",
+                    "User " + email + " tried to log in with account blocked. Remain " + minutesLeft + " min.");
             throw new RuntimeException("Account temporarily blocked. Please try again in " + minutesLeft + " minutes.");
         }
 
@@ -55,16 +58,18 @@ public class AuthenticationService {
             clientRepository.save(client);
 
             if (client.isAccountLocked()) {
-                log.error("AUDIT [ACCOUNT_LOCKED] - Account {} has reached the error limit and has been BLOCKED for {} minutes.", email, durationMinutes);
+                auditLogger.log("ACCOUNT_LOCKED",
+                        "Account " + email + "reached trial limit and was blocked by " + durationMinutes + " min.");
             } else {
-                log.warn("AUDIT [LOGIN_FAILED] - Incorrect password for user {}. Current attempts: {}", email, client.getFailedLoginAttempts());
+                auditLogger.log("LOGIN_FAILED",
+                        "Incorrect password for " + email + ". Attempt  nº " + client.getFailedLoginAttempts());
             }
             throw new RuntimeException("Invalid credentials.");
         }
         client.recordSuccessLogin();
         clientRepository.save(client);
 
-        log.info("AUDIT [LOGIN_SUCCESS] - User {} successfully authenticated.", email);
+        auditLogger.log("LOGIN_SUCCESS", "User " + email + " successfully authenticated.");
 
         String generateToken = tokenService.generateToken(client);
         return new LoginResponseDTO(generateToken, "Bearer", email);
