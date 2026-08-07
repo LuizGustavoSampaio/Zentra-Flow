@@ -3,10 +3,13 @@ package com.zentra.zentra_flow.services;
 import com.zentra.zentra_flow.entities.Client;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
@@ -19,16 +22,22 @@ public class TokenService {
     @Value("${api.security.token.expiration}")
     private long expirationTime;
 
-    public String generateToken(Client client) {
-        Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
+    private Key signingKey;
 
+    @PostConstruct
+    public void init() {
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        this.signingKey = Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public String generateToken(Client client) {
         return Jwts.builder()
                 .setSubject(client.getEmail())
                 .claim("id", client.getId())
-                .claim("role", client.getClass().getSimpleName())
+                .claim("role", client.getRole().name())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-                .signWith(key, SignatureAlgorithm.HS256)
+                .signWith(signingKey)
                 .compact();
     }
 
