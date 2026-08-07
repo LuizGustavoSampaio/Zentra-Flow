@@ -1,0 +1,11 @@
+ALTER TABLE clients
+    ADD COLUMN role VARCHAR(30);
+
+UPDATE clients SET role = 'ADMINISTRATOR' WHERE role IS NULL;
+
+ALTER TABLE clients
+    ALTER COLUMN role SET NOT NULL;
+
+ALTER TABLE clients
+    ADD CONSTRAINT chk_clients_role
+        CHECK (role IN ('ADMINISTRATOR', 'PATIENT', 'DRIVER', 'CLINIC'));
