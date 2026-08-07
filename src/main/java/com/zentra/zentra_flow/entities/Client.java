@@ -1,8 +1,10 @@
 package com.zentra.zentra_flow.entities;
 
+import com.zentra.zentra_flow.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,12 +24,18 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public abstract class Client extends BaseEntity {
 
-    public Client(String name, String email, String passwordHash, Integer failedLoginAttempts) {
+    public Client(String name, String email, String passwordHash, Role role) {
         this.name = name;
         this.email = email;
         this.passwordHash = passwordHash;
-        this.failedLoginAttempts = failedLoginAttempts = 0;
+        this.failedLoginAttempts = 0;
+        this.role = role;
     }
+
+    @Setter(AccessLevel.NONE)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false, length = 30)
+    private Role role;
 
     @Setter
     @Column(name = "name", nullable = false, length = 150)
@@ -75,10 +83,9 @@ public abstract class Client extends BaseEntity {
 
     /*Returns how many minutes are left to unlock the login.*/
     public int getMinutesUntilUnlock() {
-        if(lockUntil == null || !isAccountLocked()){
+        if (lockUntil == null || !isAccountLocked()) {
             return 0;
         }
-        Duration duration = Duration.between(LocalDateTime.now(), this.lockUntil);
-        return (int) duration.toMinutes();
+        return (int) Duration.between(LocalDateTime.now(), this.lockUntil).toMinutes();
     }
 }
