@@ -9,7 +9,7 @@ O **Zentra Flow** é uma plataforma SaaS de agendamento para clínicas, desenvol
 
 >
 > ### Stack Principal (Linguagem e Framework)
-> * **Java 25** (Versão da plataforma utilizada para o desenvolvimento).
+> * **Java 21** (Versão da plataforma utilizada para o desenvolvimento).
 > * **Spring Boot 3.x** (Framework base: Web, Data JPA, Validation, DevTools).
 
 >
