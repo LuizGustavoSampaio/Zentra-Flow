@@ -1,8 +1,8 @@
-package com.zentra.zentra_flow.controllers;
+package com.zentra.zentra_flow.identity.api;
 
-import com.zentra.zentra_flow.dto.LoginRequestDTO;
-import com.zentra.zentra_flow.dto.LoginResponseDTO;
-import com.zentra.zentra_flow.services.AuthenticationService;
+import com.zentra.zentra_flow.identity.api.dto.LoginRequestDTO;
+import com.zentra.zentra_flow.identity.api.dto.LoginResponseDTO;
+import com.zentra.zentra_flow.identity.application.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,5 +1,6 @@
-package com.zentra.zentra_flow.entities;
+package com.zentra.zentra_flow.audit.domain;
 
+import com.zentra.zentra_flow.identity.domain.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

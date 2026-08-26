@@ -1,15 +1,13 @@
-package com.zentra.zentra_flow.services;
+package com.zentra.zentra_flow.identity.application;
 
-import com.zentra.zentra_flow.entities.Client;
+import com.zentra.zentra_flow.identity.domain.Client;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 

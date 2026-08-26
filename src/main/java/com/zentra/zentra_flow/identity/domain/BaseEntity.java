@@ -1,4 +1,4 @@
-package com.zentra.zentra_flow.entities;
+package com.zentra.zentra_flow.identity.domain;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLRestriction;

@@ -1,4 +1,4 @@
-package com.zentra.zentra_flow.enums;
+package com.zentra.zentra_flow.identity.domain;
 
 
 public enum Role {

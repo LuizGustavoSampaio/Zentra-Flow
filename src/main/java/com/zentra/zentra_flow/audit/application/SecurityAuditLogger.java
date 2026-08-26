@@ -1,7 +1,7 @@
-package com.zentra.zentra_flow.services;
+package com.zentra.zentra_flow.audit.application;
 
-import com.zentra.zentra_flow.entities.AuditLog;
-import com.zentra.zentra_flow.repositories.AuditLogRepository;
+import com.zentra.zentra_flow.audit.domain.AuditLog;
+import com.zentra.zentra_flow.audit.infrastructure.AuditLogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;

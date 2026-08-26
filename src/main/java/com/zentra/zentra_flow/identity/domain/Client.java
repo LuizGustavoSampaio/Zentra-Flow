@@ -1,6 +1,5 @@
-package com.zentra.zentra_flow.entities;
+package com.zentra.zentra_flow.identity.domain;
 
-import com.zentra.zentra_flow.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

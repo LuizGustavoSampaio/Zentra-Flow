@@ -1,9 +1,10 @@
-package com.zentra.zentra_flow.services;
+package com.zentra.zentra_flow.identity.application;
 
-import com.zentra.zentra_flow.dto.LoginRequestDTO;
-import com.zentra.zentra_flow.dto.LoginResponseDTO;
-import com.zentra.zentra_flow.entities.Client;
-import com.zentra.zentra_flow.repositories.ClientRepository;
+import com.zentra.zentra_flow.identity.api.dto.LoginRequestDTO;
+import com.zentra.zentra_flow.identity.api.dto.LoginResponseDTO;
+import com.zentra.zentra_flow.identity.domain.Client;
+import com.zentra.zentra_flow.identity.infrastructure.ClientRepository;
+import com.zentra.zentra_flow.audit.application.SecurityAuditLogger;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
