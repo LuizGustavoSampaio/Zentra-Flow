@@ -1,6 +1,6 @@
-package com.zentra.zentra_flow.repositories;
+package com.zentra.zentra_flow.identity.infrastructure;
 
-import com.zentra.zentra_flow.entities.Client;
+import com.zentra.zentra_flow.identity.domain.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

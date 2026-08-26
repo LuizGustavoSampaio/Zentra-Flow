@@ -1,10 +1,13 @@
 package com.zentra.zentra_flow.services;
 
 
-import com.zentra.zentra_flow.dto.LoginRequestDTO;
-import com.zentra.zentra_flow.dto.LoginResponseDTO;
-import com.zentra.zentra_flow.entities.Administrator;
-import com.zentra.zentra_flow.repositories.ClientRepository;
+import com.zentra.zentra_flow.audit.application.SecurityAuditLogger;
+import com.zentra.zentra_flow.identity.api.dto.LoginRequestDTO;
+import com.zentra.zentra_flow.identity.api.dto.LoginResponseDTO;
+import com.zentra.zentra_flow.identity.application.AuthenticationService;
+import com.zentra.zentra_flow.identity.application.TokenService;
+import com.zentra.zentra_flow.identity.domain.Administrator;
+import com.zentra.zentra_flow.identity.infrastructure.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
