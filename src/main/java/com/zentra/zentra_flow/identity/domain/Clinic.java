@@ -1,10 +1,7 @@
 package com.zentra.zentra_flow.identity.domain;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +17,7 @@ public class Clinic extends Client{
     @Column(name = "total_ratings")
     private Integer totalRatings = 0;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "approval_status", nullable = false, length = 20)
     private ApprovalStatus approvalStatus = ApprovalStatus.PENDING;
 

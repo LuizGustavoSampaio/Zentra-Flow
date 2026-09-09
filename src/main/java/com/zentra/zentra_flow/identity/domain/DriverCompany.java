@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DriverCompany extends Driver{
 
-    @Column(name = "cnh_fleet_manager")
-    private String cnhFleetManager;
+    @Column(name = "fleet_manager_license")
+    private String fleetManagerLicense;
 
     @Column(name = "fleet_registration_number")
     private String fleetRegistrationNumber;
 
-    public DriverCompany(String name, String email, String passwordHash, String cpf, String cnhFleetManager, String fleetRegistrationNumber) {
+    public DriverCompany(String name, String email, String passwordHash, String cpf, String fleetManagerLicense, String fleetRegistrationNumber) {
         super(name, email, passwordHash,new Document(PersonType.INDIVIDUAL, cpf));
-        this.cnhFleetManager = cnhFleetManager;
+        this.fleetManagerLicense = fleetManagerLicense;
         this.fleetRegistrationNumber = fleetRegistrationNumber;
     }
 
