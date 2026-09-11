@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Administrator extends Client{
 
     public Administrator(String name, String email, String passwordHash) {
-        super(name, email, passwordHash, Role.ADMINISTRATOR);
+        super(name, email, passwordHash, Role.ADMINISTRATOR, null);
     }
 
 }
