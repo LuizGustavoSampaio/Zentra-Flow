@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 @Table(
         name = "clients",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uq_clients_email", columnNames = "email")
+                @UniqueConstraint(name = "uq_clients_email", columnNames = "email"),
+                @UniqueConstraint(name = "uq_clients_document", columnNames = "document_number")
         }
 )
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -23,18 +24,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public abstract class Client extends BaseEntity {
 
-    public Client(String name, String email, String passwordHash, Role role) {
+    public Client(String name, String email, String passwordHash, Role role, Document document) {
         this.name = name;
         this.email = email;
         this.passwordHash = passwordHash;
         this.failedLoginAttempts = 0;
         this.role = role;
+        this.document = document;
     }
 
     @Setter(AccessLevel.NONE)
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 30)
     private Role role;
+
+    @Embedded
+    @Column
+    private Document document;
 
     @Setter
     @Column(name = "name", nullable = false, length = 150)
