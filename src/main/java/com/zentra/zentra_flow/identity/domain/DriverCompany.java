@@ -18,8 +18,8 @@ public class DriverCompany extends Driver{
     @Column(name = "fleet_registration_number")
     private String fleetRegistrationNumber;
 
-    public DriverCompany(String name, String email, String passwordHash, String cpf, String fleetManagerLicense, String fleetRegistrationNumber) {
-        super(name, email, passwordHash,new Document(PersonType.INDIVIDUAL, cpf));
+    public DriverCompany(String name, String email, String passwordHash, String cnpj, String fleetManagerLicense, String fleetRegistrationNumber, Address address) {
+        super(name, email, passwordHash, new Document(PersonType.LEGAL_ENTITY, cnpj), address);
         this.fleetManagerLicense = fleetManagerLicense;
         this.fleetRegistrationNumber = fleetRegistrationNumber;
     }

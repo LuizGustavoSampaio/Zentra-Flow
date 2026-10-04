@@ -22,9 +22,13 @@ public abstract class Driver extends Client{
     @Column(name = "driver_origin")
     private DriverOrigin origin;
 
-    protected Driver(String name, String email, String passwordHash, Document document) {
+    @Embedded
+    private Address address;
+
+    protected Driver(String name, String email, String passwordHash, Document document, Address address) {
         super(name, email, passwordHash, Role.DRIVER, document);
         this.origin = DriverOrigin.OWN_REGISTRATION;
+        this.address = address;
     }
 
 }

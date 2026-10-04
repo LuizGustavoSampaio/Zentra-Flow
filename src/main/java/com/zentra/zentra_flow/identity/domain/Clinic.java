@@ -25,12 +25,12 @@ public class Clinic extends Client{
     private String cnes;
 
     @Embedded
-    private Adress adress;
+    private Address address;
 
-    public Clinic(String name, String email, String passwordHash,String cnpj, String cnes, Adress adress) {
+    public Clinic(String name, String email, String passwordHash,String cnpj, String cnes, Address address) {
         super(name, email, passwordHash, Role.CLINIC, new Document(PersonType.LEGAL_ENTITY, cnpj));
         this.cnes = cnes;
-        this.adress = adress;
+        this.address = address;
     }
 
 }

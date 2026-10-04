@@ -79,7 +79,7 @@ flowchart TD
 - **Clinic** — pessoa jurídica, precisa de aprovação administrativa (`ApprovalStatus`) antes de operar.
 - **Driver** — motorista, dividido em **Individual** (pessoa física, CNH própria) e **Company** (pessoa jurídica, frota).
 
-Documentos (CPF/CNPJ) e endereços são modelados como objetos de valor (`Document`, `Adress`) embutidos diretamente no `Client` e subtipos, evitando duplicação de campos entre pessoa física e jurídica.
+Documentos (CPF/CNPJ) e endereços são modelados como objetos de valor (`Document`, `Address`) embutidos diretamente no `Client` e subtipos, evitando duplicação de campos entre pessoa física e jurídica.
 
 A estratégia de herança usada é `JOINED`: cada subtipo concreto tem sua própria tabela, ligada por chave estrangeira à tabela do nível imediatamente acima (`clients` → `drivers` → `drivers_individual`/`drivers_company`, por exemplo).
 

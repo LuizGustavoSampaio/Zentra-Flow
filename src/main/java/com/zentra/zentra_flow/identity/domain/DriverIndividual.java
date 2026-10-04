@@ -18,8 +18,8 @@ public class DriverIndividual extends Driver {
     @Column(name = "Vehicle_info")
     private String vehicleInfo;
 
-    public DriverIndividual(String name, String email, String passwordHash, String cpf, String cnh, String vehicleInfo) {
-        super(name, email, passwordHash, new Document(PersonType.INDIVIDUAL, cpf));
+    public DriverIndividual(String name, String email, String passwordHash, String cpf, String cnh, String vehicleInfo, Address address) {
+        super(name, email, passwordHash, new Document(PersonType.INDIVIDUAL, cpf), address);
         this.cnh = cnh;
         this.vehicleInfo = vehicleInfo;
     }
