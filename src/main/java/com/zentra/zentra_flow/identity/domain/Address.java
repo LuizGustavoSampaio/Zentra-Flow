@@ -2,14 +2,13 @@ package com.zentra.zentra_flow.identity.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Embeddable
 @Getter
 @NoArgsConstructor
-public class Adress {
+public class Address {
 
     @Column(name = "cep", length = 9)
     String cep;
@@ -32,7 +31,7 @@ public class Adress {
     @Column(name = "complement", length = 100)
     String complement;
 
-    public Adress(String cep, String street, String number, String neighborhood, String city, String uf, String complement) {
+    public Address(String cep, String street, String number, String neighborhood, String city, String uf, String complement) {
         this.cep = cep;
         this.street = street;
         this.number = number;

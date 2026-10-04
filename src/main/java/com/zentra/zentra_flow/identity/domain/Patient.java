@@ -17,12 +17,12 @@ public class Patient extends Client {
     private String medicalHistory;
 
     @Embedded
-    private Adress adress;
+    private Address address;
 
-    Patient(String name, String email, String passwordHash,String cpf, String medicalHistory, Adress adress){
+    public Patient(String name, String email, String passwordHash,String cpf, String medicalHistory, Address address){
         super(name, email, passwordHash, Role.PATIENT, new Document(PersonType.INDIVIDUAL, cpf));
         this.medicalHistory = medicalHistory;
-        this.adress = adress;
+        this.address = address;
     }
 
 }
