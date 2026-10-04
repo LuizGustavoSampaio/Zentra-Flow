@@ -32,7 +32,7 @@ public class Adress {
     @Column(name = "complement", length = 100)
     String complement;
 
-    private Adress(String cep, String street, String number, String neighborhood, String city, String uf, String complement) {
+    public Adress(String cep, String street, String number, String neighborhood, String city, String uf, String complement) {
         this.cep = cep;
         this.street = street;
         this.number = number;
