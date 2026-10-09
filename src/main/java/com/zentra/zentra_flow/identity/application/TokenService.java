@@ -1,6 +1,7 @@
 package com.zentra.zentra_flow.identity.application;
 
 import com.zentra.zentra_flow.identity.domain.Client;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -37,6 +38,27 @@ public class TokenService {
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(signingKey)
                 .compact();
+    }
+
+    public String extractEmail(String token) {
+        return parseClaims(token).getSubject();
+    }
+
+    public boolean isTokenValid(String token){
+        try{
+            Claims claims = parseClaims(token);
+            return claims.getExpiration().after(new Date());
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    private Claims parseClaims(String token){
+        return Jwts.parserBuilder()
+                .setSigningKey(signingKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
 }
