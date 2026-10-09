@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
-public class PatientProfileController {
+public class AuthMeController {
 
     @GetMapping("/me")
     public String me(Authentication authentication) {
