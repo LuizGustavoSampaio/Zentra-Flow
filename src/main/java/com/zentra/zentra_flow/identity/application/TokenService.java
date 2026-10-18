@@ -53,6 +53,10 @@ public class TokenService {
         }
     }
 
+    public String extractRole(String token) {
+        return parseClaims(token).get("role", String.class);
+    }
+
     private Claims parseClaims(String token){
         return Jwts.parserBuilder()
                 .setSigningKey(signingKey)
